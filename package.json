@@ -1,0 +1,12 @@
+{
+  "name": "burger",
+  "version": "1.0.0",
+  "description": "Лендинг бургерной",
+  "scripts": {
+    "build": "tsc",
+    "start": "npm run build && node server.js"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2"
+  }
+}

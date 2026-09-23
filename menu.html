@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Меню</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style/base.css">
+    <link rel="stylesheet" href="style/menu.css">
+    <link rel="stylesheet" href="style/footer.css">
+</head>
+<body>
+    <header class="menu-header">
+        <div class="container">
+            <a href="index.html"><img class="logo" src="image/Logo.svg" alt="Логотип бургерной"></a>
+            <nav class="nav">
+                <a href="index.html">Главная</a>
+                <a href="menu.html" class="active">Меню</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="menu">
+        <div class="menu-title">
+            <h2>Наше меню</h2>
+            <div class="tabs" id="menuTabs"></div>
+            <p id="menuSlogan"></p>
+        </div>
+        <div class="container">
+            <div class="cards" id="menuList"></div>
+            <div class="pagination" id="pagination"></div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="item">
+                <img class="logo" src="image/Logo.svg" alt="Логотип бургерной">
+            </div>
+            <div class="item">
+                <h2>основные ссылки</h2>
+                <ul>
+                    <li><a href="menu.html">Меню</a></li>
+                    <li><a href="#">Заказ и Доставка</a></li>
+                    <li><a href="#">Методы оплаты</a></li>
+                    <li><a href="#">Контакты</a></li>
+                </ul>
+            </div>
+            <div class="item">
+                <h2>основная информация</h2>
+                <ul>
+                    <li>
+                        <span>Время</span>
+                        ПН-ВС<br>
+                        11:00-22:00 без перерывов
+                    </li>
+                    <li>
+                        <span>Адрес</span>
+                        Москва, ул. Тверская, 5, вход со двора
+                    </li>
+                </ul>
+            </div>
+            <div class="tel">
+                <ul>
+                    <li>+7 900 787 13 13</li>
+                    <li>+7 900 787 14 14</li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    <script src="js/menu.js"></script>
+</body>
+</html>
