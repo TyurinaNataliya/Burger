@@ -23,7 +23,7 @@ const MENU: MenuCategory[] = [
             { name: 'Дабл чизбургер', desc: 'Две говяжьи котлеты, двойной сыр, маринованные огурчики', price: 270, img: 'image/burger_3.jpg' },
             { name: 'Бургер «Острый»', desc: 'Острая котлета халапеньо, перец чили, сыр, соус барбекю', price: 280, img: 'image/burger_4.jpg' },
             { name: 'Бургер «Гурман»', desc: 'Мраморная говядина, трюфельный соус, руккола, пармезан', price: 350, img: 'image/burger_5.jpg' },
-            { name: 'Вегги-бургер', desc: 'Котлета из нута и овощей, свежая зелень, чесночный соус', price: 210, img: 'image/burger_6.jpeg' }
+            { name: 'Вегги-бургер', desc: 'Котлета из нута и овощей, свежая зелень, чесночный соус', price: 210, img: 'image/burger_6.jpg' }
         ]
     },
     {
@@ -44,18 +44,26 @@ const MENU: MenuCategory[] = [
         title: 'Закуски',
         slogan: 'Маленькие порции — большой вкус. Дополни свой перекус, доведи его до совершенства',
         items: [
-            { name: 'Картофель фри', desc: 'Хрустящий картофель с фирменным соусом', price: 120 },
-            { name: 'Картофель по-деревенски', desc: 'Дольки в специях с чесночным соусом', price: 140 },
-            { name: 'Луковые кольца', desc: 'В хрустящей панировке с соусом', price: 150 },
-            { name: 'Наггетсы', desc: 'Куриные наггетсы с соусом барбекю', price: 180 },
-            { name: 'Сырные палочки', desc: 'В панировке с тянущимся сыром внутри', price: 170 },
-            { name: 'Крылышки барбекю', desc: 'Сочные куриные крылышки в соусе барбекю', price: 220 }
+            { name: 'Картофель фри', desc: 'Хрустящий картофель с фирменным соусом', price: 120, img: 'image/snack_1.jpg' },
+            { name: 'Картофель по-деревенски', desc: 'Дольки в специях с чесночным соусом', price: 140, img: 'image/snack_2.jpg' },
+            { name: 'Луковые кольца', desc: 'В хрустящей панировке с соусом', price: 150, img: 'image/snack_3.jpg' },
+            { name: 'Наггетсы', desc: 'Куриные наггетсы с соусом барбекю', price: 180, img: 'image/snack_4.jpg' },
+            { name: 'Сырные палочки', desc: 'В панировке с тянущимся сыром внутри', price: 170, img: 'image/snack_5.jpg' },
+            { name: 'Крылышки барбекю', desc: 'Сочные куриные крылышки в соусе барбекю', price: 220, img: 'image/snack_6.jpg' }
         ]
     }
 ];
 
 const ITEMS_PER_PAGE = 6;
 const PLACEHOLDER_IMG = 'image/burger.png';
+const CART_KEY = 'cart';
+
+interface CartItem {
+    name: string;
+    price: number;
+    img: string;
+    qty: number;
+}
 
 const tabsEl = document.getElementById('menuTabs') as HTMLDivElement;
 const listEl = document.getElementById('menuList') as HTMLDivElement;
@@ -64,6 +72,48 @@ const sloganEl = document.getElementById('menuSlogan') as HTMLParagraphElement;
 
 let currentCategory: string = MENU[0].id;
 let currentPage: number = 1;
+
+const countEl = document.getElementById('cartCount') as HTMLSpanElement;
+
+function loadCart(): CartItem[] {
+    try {
+        const raw = sessionStorage.getItem(CART_KEY);
+        return raw ? (JSON.parse(raw) as CartItem[]) : [];
+    } catch (err) {
+        console.error('Ошибка чтения корзины', err);
+        return [];
+    }
+}
+
+function updateCartCount(): void {
+    const total = loadCart().reduce((sum, item) => sum + item.qty, 0);
+    if (!countEl) {
+        return;
+    }
+    countEl.textContent = String(total);
+    countEl.style.display = total > 0 ? 'inline-block' : 'none';
+}
+
+function addToCart(item: CartItem): void {
+    const cart = loadCart();
+    const found = cart.find((i) => i.name === item.name);
+    if (found) {
+        found.qty += 1;
+    } else {
+        cart.push({ ...item, qty: 1 });
+    }
+    sessionStorage.setItem(CART_KEY, JSON.stringify(cart));
+    updateCartCount();
+}
+
+function updateOrderBadge(btn: HTMLButtonElement, qty: number): void {
+    const badge = btn.querySelector('.order-badge') as HTMLSpanElement | null;
+    if (!badge) {
+        return;
+    }
+    badge.textContent = String(qty);
+    badge.style.display = qty > 0 ? 'inline-block' : 'none';
+}
 
 function getCategory(id: string): MenuCategory {
     return MENU.find((cat) => cat.id === id) as MenuCategory;
@@ -83,18 +133,19 @@ function renderCards(): void {
         (currentPage - 1) * ITEMS_PER_PAGE,
         currentPage * ITEMS_PER_PAGE
     );
-    listEl.innerHTML = pageItems
-        .map((item) =>
-            `<div class="card">
+listEl.innerHTML = pageItems
+        .map((item) => {
+            const qty = loadCart().find((i) => i.name === item.name)?.qty ?? 0;
+            return `<div class="card">
                 <img src="${item.img ?? PLACEHOLDER_IMG}" alt="${item.name}">
                 <h3>${item.name}</h3>
                 <p class="desc">${item.desc}</p>
                 <div class="card-bottom">
                     <p class="price">${item.price} ₽</p>
-                    <a href="#">заказать</a>
+                    <button class="order-btn" data-name="${item.name}" data-price="${item.price}" data-img="${item.img ?? PLACEHOLDER_IMG}">заказать<span class="order-badge" style="${qty > 0 ? 'display:inline-block' : 'display:none'}">${qty}</span></button>
                 </div>
-            </div>`
-        )
+            </div>`;
+        })
         .join('');
 }
 
@@ -148,4 +199,21 @@ paginationEl.addEventListener('click', (e: MouseEvent) => {
     render();
 });
 
+listEl.addEventListener('click', (e: MouseEvent) => {
+    const btn = (e.target as HTMLElement).closest('.order-btn') as HTMLButtonElement | null;
+    if (!btn) {
+        return;
+    }
+    const name = btn.dataset.name as string;
+    addToCart({
+        name,
+        price: Number(btn.dataset.price),
+        img: btn.dataset.img as string,
+        qty: 1
+    });
+    updateOrderBadge(btn, loadCart().find((i) => i.name === name)?.qty ?? 0);
+});
+
 render();
+updateCartCount();
+export {};

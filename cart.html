@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Меню</title>
+    <title>Корзина</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style/base.css">
     <link rel="stylesheet" href="style/menu.css">
+    <link rel="stylesheet" href="style/cart.css">
     <link rel="stylesheet" href="style/footer.css">
 </head>
 <body>
@@ -18,21 +19,29 @@
             <a href="index.html"><img class="logo" src="image/Logo.svg" alt="Логотип бургерной"></a>
             <nav class="nav">
                 <a href="index.html">Главная</a>
-                <a href="menu.html" class="active">Меню</a>
-                <a href="cart.html" class="nav-cart">Корзина<span class="cart-count" id="cartCount">0</span></a>
+                <a href="menu.html">Меню</a>
+                <a href="cart.html" class="nav-cart active">Корзина<span class="cart-count" id="cartCount">0</span></a>
             </nav>
         </div>
     </header>
 
-    <main class="menu">
-        <div class="menu-title">
-            <h2>Наше меню</h2>
-            <div class="tabs" id="menuTabs"></div>
-            <p id="menuSlogan"></p>
+    <main class="cart-page">
+        <div class="cart-title">
+            <h2>Ваша корзина</h2>
+            <p id="cartSubtitle">Проверьте выбранное перед оформлением</p>
         </div>
-        <div class="container">
-            <div class="cards" id="menuList"></div>
-            <div class="pagination" id="pagination"></div>
+        <div class="container cart-container">
+            <div class="cart-empty" id="cartEmpty">
+                <p>Корзина пуста — добавьте что-нибудь вкусное</p>
+                <a href="menu.html">перейти в меню</a>
+            </div>
+            <div id="cartSummary" class="cart-summary">
+                <div class="cart-list" id="cartList"></div>
+                <div class="cart-bottom">
+                    <button id="clearCart">очистить корзину</button>
+                    <p class="cart-total">Итого: <span id="cartTotal">0 ₽</span></p>
+                </div>
+            </div>
         </div>
     </main>
 
@@ -72,6 +81,6 @@
             </div>
         </div>
     </footer>
-    <script src="js/menu.js" type="module"></script>
+    <script src="js/cart.js" type="module"></script>
 </body>
 </html>

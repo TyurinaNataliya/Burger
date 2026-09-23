@@ -134,14 +134,56 @@
     font-weight: 900;
     color: #F37335;
 }
-.card-bottom a{
+.card-bottom .order-btn{
+    position: relative;
     color: #1E2F40;
     background-color: #FBB731;
+    border: none;
     border-radius: 5px;
-    text-decoration: none;
+    cursor: pointer;
     padding: 12px 24px;
     text-transform: uppercase;
     font-size: 13px;
+    font-weight: 700;
+    font-family: 'Open Sans', sans-serif;
+}
+.card-bottom .order-btn:hover{
+    background-color: #F37335;
+    color: #FFFFFF;
+}
+.order-badge{
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #F37335;
+    color: #FFFFFF;
+    border-radius: 50%;
+    font-size: 11px;
+    line-height: 18px;
+    min-width: 18px;
+    height: 18px;
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+}
+
+.nav-cart{
+    display: inline-flex;
+    align-items: center;
+}
+.cart-count{
+    display: none;
+    background: #F37335;
+    color: #FFFFFF;
+    border-radius: 50%;
+    font-size: 11px;
+    line-height: 18px;
+    min-width: 18px;
+    height: 18px;
+    text-align: center;
+    margin-left: 6px;
+    font-family: 'Open Sans', sans-serif;
     font-weight: 700;
 }
 
