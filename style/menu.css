@@ -200,6 +200,8 @@
     }
     .nav{
         gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
     }
     .menu{
         padding-top: 50px;

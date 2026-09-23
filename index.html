@@ -4,16 +4,29 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Бургерная — Лучшие бургеры с доставкой за 30 минут</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style/base.css">
+    <link rel="stylesheet" href="style/menu.css">
     <link rel="stylesheet" href="style/header.css">
     <link rel="stylesheet" href="style/main.css">
     <link rel="stylesheet" href="style/footer.css">
 </head>
 <body>
+    <header class="menu-header">
+        <div class="container">
+            <a href="index.html"><img class="logo" src="image/Logo.svg" alt="Логотип бургерной"></a>
+            <nav class="nav">
+                <a href="index.html" class="active">Главная</a>
+                <a href="menu.html">Меню</a>
+                <a href="cart.html" class="nav-cart">Корзина<span class="cart-count" id="cartCount">0</span></a>
+                <a href="contacts.html">Контакты</a>
+            </nav>
+        </div>
+    </header>
+
     <div class="main">
         <div class="container">
             <div class="text">
@@ -22,64 +35,224 @@
                     Лучшие бургеры
                 </h1>
                 <p> Закажи наши фирменные бургеры или собери что-то своё, а&nbspнаши&nbspкурьеры доставят за 30 минут</p>
-                <a href="menu.html">заказать</a>
+                <div class="main-btns">
+                    <a href="menu.html">заказать</a>
+                    <a class="btn-ghost" href="menu.html">собрать бургер</a>
+                </div>
             </div>
             <div class="visual">
                 <div class="bg"></div>
                 <img src="image/burger.png" alt="Burger">
-             </div>
-
-        </div>
             </div>
-            <div class="promo">
-                <div class="container">
-                    <div class="promo-left">
-                        <p class="sale">Скидка</p>
-                        <p class="cost">-20%</p>
-                        <p class="description">При заказе на 3х и более персон мы делаем скидки, а также предоставляем скидки именинникам </p>
+        </div>
+    </div>
+
+    <div class="trust">
+        <div class="container">
+            <p>★ 4.9 — рейтинг доставки</p>
+            <p>2 340 заказов за неделю</p>
+            <p>доставка за 30 минут</p>
+            <p>возврат, если не понравилось</p>
+        </div>
+    </div>
+
+    <section class="benefits">
+        <div class="container benefits-wrap">
+            <h2 class="section-title">почему мы</h2>
+            <div class="benefits-grid">
+                <div class="benefit">
+                    <div class="icon">
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#1E2F40" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5h18"/><path d="M3 11.5c0-3.9 3.8-7 9-7s9 3.1 9 7"/><path d="M3 11.5h18v2.5a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M7 20h10"/></svg>
                     </div>
-                    <div class="promo-right">
-                        <p class="free">Бесплатно</p>
-                        <p class="description">При заказе на сумму 500 рублей и более - доставляем бесплатно</p>
-                        <a href="menu.html">заказать</a>
+                    <h3>свежие ингредиенты</h3>
+                    <p>Котлеты жарим на заказ, овощи и соусы — собственного приготовления</p>
+                </div>
+                <div class="benefit">
+                    <div class="icon">
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#1E2F40" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2"/><path d="M9 2.5h6"/></svg>
+                    </div>
+                    <h3>доставка за 30 минут</h3>
+                    <p>Или заказ для вас — бесплатно</p>
+                </div>
+                <div class="benefit">
+                    <div class="icon">
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#1E2F40" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1.5" y="6" width="12.5" height="9" rx="1"/><path d="M14 9h3.5L21 12v3h-7"/><circle cx="6" cy="18.2" r="1.6"/><circle cx="17.5" cy="18.2" r="1.6"/></svg>
+                    </div>
+                    <h3>фри-доставка от 500 ₽</h3>
+                    <p>На заказы от 500 рублей — бесплатная доставка</p>
+                </div>
+                <div class="benefit">
+                    <div class="icon">
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#1E2F40" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7.5" width="18" height="4"/><path d="M5 11.5v9h14v-9"/><path d="M12 7.5V20.5"/><path d="M12 7.5C10 7.5 7.5 7.7 7.5 5.5S9.7 2.5 12 5.5 16.5 9.5 16.5 7.5 14 7.5 12 7.5z"/></svg>
+                    </div>
+                    <h3>скидка именинникам</h3>
+                    <p>−20% всем, кто отмечает день рождения у нас</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="hits">
+        <div class="container hits-wrap">
+            <h2 class="section-title">хиты недели</h2>
+            <p class="countdown">Скидка −20% до конца дня: <span id="hitTimer">00:00:00</span></p>
+            <div class="hits-grid">
+                <div class="card hit-card">
+                    <span class="hit-badge">хит</span>
+                    <img src="image/burger_3.jpg" alt="Дабл чизбургер">
+                    <h3>Дабл чизбургер</h3>
+                    <p class="desc">Две говяжьи котлеты, двойной сыр, маринованные огурчики</p>
+                    <div class="card-bottom">
+                        <p class="price">270 ₽</p>
+                        <a class="hit-link" href="menu.html">в меню</a>
+                    </div>
+                </div>
+                <div class="card hit-card">
+                    <span class="hit-badge">хит</span>
+                    <img src="image/pizza_2.jpg" alt="Пепперони">
+                    <h3>пицца пепперони</h3>
+                    <p class="desc">Пикантная пепперони, сыр, томатный соус</p>
+                    <div class="card-bottom">
+                        <p class="price">520 ₽</p>
+                        <a class="hit-link" href="menu.html">в меню</a>
+                    </div>
+                </div>
+                <div class="card hit-card">
+                    <span class="hit-badge">хит</span>
+                    <img src="image/snack_4.jpg" alt="Наггетсы">
+                    <h3>наггетсы</h3>
+                    <p class="desc">Куриные наггетсы с соусом барбекю</p>
+                    <div class="card-bottom">
+                        <p class="price">180 ₽</p>
+                        <a class="hit-link" href="menu.html">в меню</a>
                     </div>
                 </div>
             </div>
-            <div class="footer">
-                <div class ="container">
-                    <div class="item">
-                        <img class="logo" src="image/Logo.svg" alt="logo">
-                    </div>
-                    <div class="item">
-                        <h2>основные ссылки</h2>
-                        <ul>
-                            <li><a href="menu.html">Меню</a></li>
-                            <li><a href="">Заказ и Доставка</a></li>
-                            <li><a href="">Методы оплаты</a></li>
-                            <li><a href="">Контакты</a></li>
-                        </ul>
-                    </div>
-                    <div class="item">
-                        <h2>основная информация</h2>
-                        <ul>
-                            <li>
-                                <span>Время</span>
-                                ПН-ВС<br>
-                                11:00-22:00 без перерывов
-                            </li>
-                            <li>
-                                <span>Адрес</span>
-                                Москва, ул. Тверская, 5, вход со двора
-                            </li>
-                    </div>
-                    <div class="tel">
-                        <ul>
-                            <li>+7 900 787 13 13</li>
-                            <li>+7 900 787 14 14</li>
-                        </ul>
-                    </div>
-                    
-                </div>    
         </div>
+    </section>
+
+    <div class="promo">
+        <div class="container">
+            <div class="promo-left">
+                <p class="sale">Скидка</p>
+                <p class="cost">-20%</p>
+                <p class="description">При заказе на 3х и более персон мы делаем скидки, а также предоставляем скидки именинникам </p>
+            </div>
+            <div class="promo-right">
+                <p class="free">Бесплатно</p>
+                <p class="description">При заказе на сумму 500 рублей и более - доставляем бесплатно</p>
+                <a href="menu.html">заказать</a>
+            </div>
+        </div>
+    </div>
+
+    <section class="delivery">
+        <div class="container delivery-wrap">
+            <h2 class="section-title">как мы доставляем</h2>
+            <div class="steps">
+                <div class="step">
+                    <span class="step-num">1</span>
+                    <h3>выбери блюда</h3>
+                    <p>В меню или прямо на этой странице</p>
+                </div>
+                <div class="step">
+                    <span class="step-num">2</span>
+                    <h3>оплати удобно</h3>
+                    <p>Картой онлайн или наличными курьеру</p>
+                </div>
+                <div class="step">
+                    <span class="step-num">3</span>
+                    <h3>получи через 30 минут</h3>
+                    <p>Горячим, а не холодным — есть наши курьеры</p>
+                </div>
+            </div>
+            <div class="conditions">
+                <p><span>Зоны доставки:</span> Москва в пределах МКАД</p>
+                <p><span>Оплата:</span> карта, наличные, СБП</p>
+                <p><span>Возврат:</span> не понравилось — вернём деньги</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="reviews">
+        <div class="container reviews-wrap">
+            <h2 class="section-title">что говорят клиенты</h2>
+            <div class="reviews-grid">
+                <div class="review">
+                    <p class="stars">★★★★★</p>
+                    <p class="review-text">Доставили за 25 минут, бургер был горячий и сочный. Заказываем теперь только здесь.</p>
+                    <p class="review-author">Анна, Москва</p>
+                </div>
+                <div class="review">
+                    <p class="stars">★★★★★</p>
+                    <p class="review-text">Лучший дабл чизбургер в районе — сыр тянется, котлета свежая. Рекомендую всем коллегам.</p>
+                    <p class="review-author">Дмитрий, Москва</p>
+                </div>
+                <div class="review">
+                    <p class="stars">★★★★★</p>
+                    <p class="review-text">Заказываем каждую пятницу на всю семью. Пицца и наггетсы — дети в восторге.</p>
+                    <p class="review-author">Марина, Москва</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="lead">
+        <div class="container lead-wrap">
+            <h2>промокод на первый заказ</h2>
+            <p>Оставьте номер — пришлём промокод на −10% и соберём заказ за вас</p>
+            <form class="lead-form" id="leadForm">
+                <input type="tel" name="phone" placeholder="+7 (___) ___-__-__" required>
+                <button type="submit">получить промокод</button>
+            </form>
+            <p class="lead-success" id="leadSuccess" hidden>Спасибо! Промокод уже летит к вам в СМС. Скоро перезвоним.</p>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container cta-wrap">
+            <h2>голоден? значит, пора заказывать</h2>
+            <p>Соберите заказ прямо сейчас — курьер уложится в 30 минут</p>
+            <a class="cta-btn" href="menu.html">заказать сейчас</a>
+        </div>
+    </section>
+
+    <div class="footer">
+        <div class="container">
+            <div class="item">
+                <img class="logo" src="image/Logo.svg" alt="logo">
+            </div>
+            <div class="item">
+                <h2>основные ссылки</h2>
+                <ul>
+                    <li><a href="menu.html">Меню</a></li>
+                    <li><a href="">Заказ и Доставка</a></li>
+                    <li><a href="">Методы оплаты</a></li>
+                    <li><a href="contacts.html">Контакты</a></li>
+                </ul>
+            </div>
+            <div class="item">
+                <h2>основная информация</h2>
+                <ul>
+                    <li>
+                        <span>Время</span>
+                        ПН-ВС<br>
+                        11:00-22:00 без перерывов
+                    </li>
+                    <li>
+                        <span>Адрес</span>
+                        Москва, ул. Тверская, 5, вход со двора
+                    </li>
+                </ul>
+            </div>
+            <div class="tel">
+                <ul>
+                    <li>+7 900 787 13 13</li>
+                    <li>+7 900 787 14 14</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script src="js/main.js" type="module"></script>
 </body>
 </html>
