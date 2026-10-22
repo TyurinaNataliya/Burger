@@ -40,11 +40,69 @@
                 <div class="cart-list" id="cartList"></div>
                 <div class="cart-bottom">
                     <button id="clearCart">очистить корзину</button>
-                    <p class="cart-total">Итого: <span id="cartTotal">0 ₽</span></p>
+                    <div class="cart-bottom-right">
+                        <p class="cart-total">Итого: <span id="cartTotal">0 ₽</span></p>
+                        <button id="checkoutBtn" class="checkout-btn">оформить заказ</button>
+                    </div>
                 </div>
             </div>
         </div>
     </main>
+
+    <div class="order-modal" id="orderModal">
+        <div class="order-modal-backdrop" id="orderModalBackdrop"></div>
+        <div class="order-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="orderModalTitle">
+            <button type="button" class="order-modal-close" id="orderModalClose" aria-label="Закрыть">✕</button>
+
+            <div class="order-modal-body" id="orderFormBlock">
+                <h3 id="orderModalTitle">Оформление заказа</h3>
+                <p class="order-modal-subtitle">Оставьте контакты — перезвоним для подтверждения</p>
+                <form class="order-form" id="orderForm" novalidate>
+                    <label class="order-field">
+                        <span>имя</span>
+                        <input type="text" name="name" placeholder="Как к вам обращаться" autocomplete="name">
+                    </label>
+                    <label class="order-field">
+                        <span>телефон</span>
+                        <input type="tel" name="phone" placeholder="+7 (___) ___-__-__" autocomplete="tel">
+                    </label>
+                    <label class="order-field">
+                        <span>адрес доставки</span>
+                        <input type="text" name="address" placeholder="Улица, дом, квартира" autocomplete="street-address">
+                    </label>
+                    <label class="order-field">
+                        <span>комментарий</span>
+                        <textarea name="comment" rows="2" placeholder="Пожелания к заказу (необязательно)"></textarea>
+                    </label>
+                    <fieldset class="order-field order-payment">
+                        <legend>способ оплаты</legend>
+                        <label class="pay-option">
+                            <input type="radio" name="payment" value="card" checked>
+                            <span>картой онлайн</span>
+                        </label>
+                        <label class="pay-option">
+                            <input type="radio" name="payment" value="cash">
+                            <span>наличными курьеру</span>
+                        </label>
+                        <label class="pay-option">
+                            <input type="radio" name="payment" value="sbp">
+                            <span>сбп</span>
+                        </label>
+                    </fieldset>
+                    <p class="order-error" id="orderError"></p>
+                    <div class="order-total">Итого: <span id="orderTotal">0 ₽</span></div>
+                    <button type="submit" class="order-submit">отправить заказ</button>
+                </form>
+            </div>
+
+            <div class="order-modal-body order-success" id="orderSuccess">
+                <div class="order-success-icon">✓</div>
+                <h3>Заказ принят</h3>
+                <p>Скоро перезвоним и подтвердим доставку</p>
+                <button type="button" class="order-submit" id="orderSuccessClose">ок</button>
+            </div>
+        </div>
+    </div>
 
     <footer class="footer">
         <div class="container">

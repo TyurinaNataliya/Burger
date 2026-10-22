@@ -5,6 +5,16 @@ interface CartItem {
     qty: number;
 }
 
+interface OrderRequest {
+    name: string;
+    phone: string;
+    address: string;
+    comment: string;
+    payment: string;
+    items: CartItem[];
+    total: number;
+}
+
 const CART_KEY = 'cart';
 
 const cartListEl = document.getElementById('cartList') as HTMLDivElement;
@@ -14,6 +24,16 @@ const cartTotalEl = document.getElementById('cartTotal') as HTMLSpanElement;
 const cartSubtitleEl = document.getElementById('cartSubtitle') as HTMLParagraphElement;
 const clearBtn = document.getElementById('clearCart') as HTMLButtonElement;
 const countEl = document.getElementById('cartCount') as HTMLSpanElement;
+const checkoutBtn = document.getElementById('checkoutBtn') as HTMLButtonElement;
+const orderModalEl = document.getElementById('orderModal') as HTMLDivElement;
+const orderModalBackdropEl = document.getElementById('orderModalBackdrop') as HTMLDivElement;
+const orderModalCloseEl = document.getElementById('orderModalClose') as HTMLButtonElement;
+const orderFormBlockEl = document.getElementById('orderFormBlock') as HTMLDivElement;
+const orderFormEl = document.getElementById('orderForm') as HTMLFormElement;
+const orderErrorEl = document.getElementById('orderError') as HTMLParagraphElement;
+const orderTotalEl = document.getElementById('orderTotal') as HTMLSpanElement;
+const orderSuccessEl = document.getElementById('orderSuccess') as HTMLDivElement;
+const orderSuccessCloseEl = document.getElementById('orderSuccessClose') as HTMLButtonElement;
 
 function loadCart(): CartItem[] {
     try {
@@ -115,6 +135,86 @@ cartListEl.addEventListener('click', (e: MouseEvent) => {
 
 clearBtn.addEventListener('click', clearCart);
 
+function cartTotal(): number {
+    return loadCart().reduce((sum, item) => sum + item.price * item.qty, 0);
+}
+
+function openOrderModal(): void {
+    orderTotalEl.textContent = `${cartTotal()} ₽`;
+    orderErrorEl.style.display = 'none';
+    orderFormBlockEl.style.display = 'block';
+    orderSuccessEl.classList.remove('open');
+    orderModalEl.classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeOrderModal(): void {
+    orderModalEl.classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+function showOrderError(message: string): void {
+    orderErrorEl.textContent = message;
+    orderErrorEl.style.display = 'block';
+}
+
+function collectOrder(): OrderRequest {
+    const data = new FormData(orderFormEl);
+    return {
+        name: String(data.get('name') ?? '').trim(),
+        phone: String(data.get('phone') ?? '').trim(),
+        address: String(data.get('address') ?? '').trim(),
+        comment: String(data.get('comment') ?? '').trim(),
+        payment: String(data.get('payment') ?? 'card'),
+        items: loadCart(),
+        total: cartTotal()
+    };
+}
+
+function validateOrder(order: OrderRequest): string {
+    if (!order.name) {
+        return 'Укажите имя';
+    }
+    if (order.phone.replace(/\D/g, '').length < 10) {
+        return 'Укажите корректный номер телефона';
+    }
+    if (!order.address) {
+        return 'Укажите адрес доставки';
+    }
+    return '';
+}
+
+checkoutBtn.addEventListener('click', openOrderModal);
+orderModalCloseEl.addEventListener('click', closeOrderModal);
+orderModalBackdropEl.addEventListener('click', closeOrderModal);
+orderSuccessCloseEl.addEventListener('click', closeOrderModal);
+
+document.addEventListener('keydown', (e: KeyboardEvent) => {
+    if (e.key === 'Escape' && orderModalEl.classList.contains('open')) {
+        closeOrderModal();
+    }
+});
+
+orderFormEl.addEventListener('submit', (e: Event) => {
+    e.preventDefault();
+
+    const order = collectOrder();
+    const error = validateOrder(order);
+    if (error) {
+        showOrderError(error);
+        return;
+    }
+
+    orderErrorEl.style.display = 'none';
+    console.log('Заказ сформирован (отправка отключена)', order);
+
+    orderFormBlockEl.style.display = 'none';
+    orderSuccessEl.classList.add('open');
+
+    clearCart();
+});
+
 renderCart();
+
 
 export {};

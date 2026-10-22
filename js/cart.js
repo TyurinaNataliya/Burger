@@ -6,6 +6,16 @@ const cartTotalEl = document.getElementById('cartTotal');
 const cartSubtitleEl = document.getElementById('cartSubtitle');
 const clearBtn = document.getElementById('clearCart');
 const countEl = document.getElementById('cartCount');
+const checkoutBtn = document.getElementById('checkoutBtn');
+const orderModalEl = document.getElementById('orderModal');
+const orderModalBackdropEl = document.getElementById('orderModalBackdrop');
+const orderModalCloseEl = document.getElementById('orderModalClose');
+const orderFormBlockEl = document.getElementById('orderFormBlock');
+const orderFormEl = document.getElementById('orderForm');
+const orderErrorEl = document.getElementById('orderError');
+const orderTotalEl = document.getElementById('orderTotal');
+const orderSuccessEl = document.getElementById('orderSuccess');
+const orderSuccessCloseEl = document.getElementById('orderSuccessClose');
 function loadCart() {
     try {
         const raw = sessionStorage.getItem(CART_KEY);
@@ -93,5 +103,71 @@ cartListEl.addEventListener('click', (e) => {
     }
 });
 clearBtn.addEventListener('click', clearCart);
+function cartTotal() {
+    return loadCart().reduce((sum, item) => sum + item.price * item.qty, 0);
+}
+function openOrderModal() {
+    orderTotalEl.textContent = `${cartTotal()} ₽`;
+    orderErrorEl.style.display = 'none';
+    orderFormBlockEl.style.display = 'block';
+    orderSuccessEl.classList.remove('open');
+    orderModalEl.classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+function closeOrderModal() {
+    orderModalEl.classList.remove('open');
+    document.body.style.overflow = '';
+}
+function showOrderError(message) {
+    orderErrorEl.textContent = message;
+    orderErrorEl.style.display = 'block';
+}
+function collectOrder() {
+    const data = new FormData(orderFormEl);
+    return {
+        name: String(data.get('name') ?? '').trim(),
+        phone: String(data.get('phone') ?? '').trim(),
+        address: String(data.get('address') ?? '').trim(),
+        comment: String(data.get('comment') ?? '').trim(),
+        payment: String(data.get('payment') ?? 'card'),
+        items: loadCart(),
+        total: cartTotal()
+    };
+}
+function validateOrder(order) {
+    if (!order.name) {
+        return 'Укажите имя';
+    }
+    if (order.phone.replace(/\D/g, '').length < 10) {
+        return 'Укажите корректный номер телефона';
+    }
+    if (!order.address) {
+        return 'Укажите адрес доставки';
+    }
+    return '';
+}
+checkoutBtn.addEventListener('click', openOrderModal);
+orderModalCloseEl.addEventListener('click', closeOrderModal);
+orderModalBackdropEl.addEventListener('click', closeOrderModal);
+orderSuccessCloseEl.addEventListener('click', closeOrderModal);
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && orderModalEl.classList.contains('open')) {
+        closeOrderModal();
+    }
+});
+orderFormEl.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const order = collectOrder();
+    const error = validateOrder(order);
+    if (error) {
+        showOrderError(error);
+        return;
+    }
+    orderErrorEl.style.display = 'none';
+    console.log('Заказ сформирован (отправка отключена)', order);
+    orderFormBlockEl.style.display = 'none';
+    orderSuccessEl.classList.add('open');
+    clearCart();
+});
 renderCart();
 export {};
